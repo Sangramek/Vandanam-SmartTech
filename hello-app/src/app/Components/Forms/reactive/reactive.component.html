@@ -1,0 +1,66 @@
+<div class="mt-2 p-2 bg-secondary text-white rounded">
+    <h1>Reactive Form</h1>
+    <p>Create Form And Validation</p>
+  </div>
+  
+  <form class="row g-3 needs-validation" [formGroup]="studentForm">
+    <div class="col-md-4">
+      <label class="form-label">First name</label>
+      <input type="text" formControlName="firstName"  class="form-control">
+      <div class="text-danger">
+        @if(studentForm.controls['firstName'].touched && studentForm.controls['firstName'].errors?.['required']){
+          <span >*required</span>
+        } @else if (studentForm.controls['firstName'].touched && studentForm.controls['firstName'].errors?.['minlength']) {
+          <span>*min 4 char required</span>
+        }
+       
+        
+      </div>
+    </div>
+    <div class="col-md-4">
+      <label  class="form-label">Last name</label>
+      <input type="text" formControlName="lastName" class="form-control">
+    </div>
+    <div class="col-md-4" >
+      <label class="form-label">Username</label>
+      <div class="input-group has-validation">
+        <span class="input-group-text"><span>&#64;</span></span>
+        <input type="text" formControlName="userName" class="form-control">
+      </div>
+        @if(studentForm.controls['userName'].touched && studentForm.controls['userName'].errors?.['email']){
+          <span class="text-danger" >*email id not valid!</span>
+        }
+    </div>
+    <div class="col-md-6">
+      <label  class="form-label">City</label>
+      <input type="text" formControlName="city"  class="form-control" >
+    </div>
+    <div class="col-md-3">
+      <label  class="form-label">State</label>
+      <select class="form-select" formControlName="state" >
+        <option selected disabled value="">Choose...</option>
+        <option>Maharashtra</option>
+        <option>Keral</option>
+        <option>Karnataka</option>
+      </select>
+    </div>
+    <div class="col-md-3">
+      <label for="validationCustom05" class="form-label">Zip</label>
+      <input type="text" formControlName="zipCode" class="form-control" >
+    </div>
+    <div class="col-12">
+      <div class="form-check">
+        <input class="form-check-input" formControlName="isAcceptTerms" type="checkbox" value="">
+        <label class="form-check-label" for="invalidCheck">
+          Agree to terms and conditions
+        </label>
+      </div>
+    </div>
+    <div class="col-12">
+      <button class="btn btn-secondary" type="button" >Reset form</button>
+      <button class="btn btn-primary mx-2" [disabled]="studentForm.invalid" type="submit" (click)="onSave()">Submit form</button>
+    </div>
+    <div>
+      {{formValue|json}}
+    </div>
+  </form> 
